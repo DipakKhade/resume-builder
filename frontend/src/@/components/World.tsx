@@ -1,6 +1,9 @@
 "use client";
-import React,{ Suspense }  from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Button } from "./button";
+import { MoveRight } from "lucide-react";
 const World = React.lazy(() => import('./globe').then(module => ({ default: module.World })));
 
 
@@ -411,13 +414,20 @@ export function GlobeDemo() {
             <h2 className="text-center text-xl md:text-4xl font-bold text-black dark:text-white">
               We sell soap worldwide
             </h2>
-            <p className="text-center text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
-              This globe is interactive and customizable. Have fun with it, and
-              don&apos;t forget to share it. :)
-            </p>
+            <div className="text-center p-2 text-base md:text-lg font-normal text-neutral-700 dark:text-neutral-200 max-w-md mt-2 mx-auto">
+             <p> This globe is interactive and customizable. Have fun with it, and
+              don&apos;t forget to share it.</p>
+             
+            </div>
           </motion.div>
+          
           <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent dark:to-black to-white z-40" />
+
           <div className="absolute w-full -bottom-20 h-72 md:h-full z-10">
+          <Link to={'/resume-builder'}>
+
+<Button className="p-3 mt-2 cursor-pointer">make resume <MoveRight className="pt-1" /></Button>
+</Link>
             <World data={sampleArcs} globeConfig={globeConfig} />;
           </div>
         </div>
