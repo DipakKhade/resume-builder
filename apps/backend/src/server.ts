@@ -14,7 +14,7 @@ app.get('/', function (req: Request, res: Response) {
 });
 
 app.post('/generate-resume', async function (req: Request, res: Response) {
-    let { name, email, education, experience, skills, social } = req.body.data;
+    let { name, email, education, experience, skills, social } =await req.body.data;
 
     education=education.split(',')
     experience=experience.split(',')
@@ -22,12 +22,12 @@ app.post('/generate-resume', async function (req: Request, res: Response) {
     skills=skills.split(',')
     
 
-    console.log(experience)
+    // console.log(experience)
 
     // console.log(req.body)
     
 
-    try {
+   
         const doc = new PDFDocument();
     doc.font('Helvetica');
 
@@ -74,12 +74,30 @@ app.post('/generate-resume', async function (req: Request, res: Response) {
     const filePath = `${path.resolve()}/documents/${fileName}`;
     doc.pipe(fs.createWriteStream(filePath));
     doc.end();
-    res.json({status:'success'})
+    res.json({
+        status:'success',
+        fileName
+    })
 
 
-    } catch (error) {
-        res.json({status:'fail'})
-    }
+  
 });
+
+
+app.get('/getresume',function(req:Request,res:Response){
+    const {pdfname}=req.query;
+    console.log(req.query)
+
+    const resumepath=`${path.resolve()}\${req.query.pdfname}`
+
+console.log(resumepath)
+    if (fs.existsSync(resumepath)) {
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `inline; filename=${pdfname}`);
+
+        const stream = fs.createReadStream(resumepath);
+        stream.pipe(res);
+    } 
+})
 
 app.listen(PORT, () => console.log('Server is up and running at PORT 3000...'));

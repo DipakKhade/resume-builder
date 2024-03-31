@@ -2,8 +2,14 @@ import { useState } from 'react';
 import { Button } from '../button';
 import { Input } from '../input';
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import { Document, Page } from 'react-pdf';
+import { PDFView } from './PDFView';
+import { redirect } from "react-router-dom";
 
 export default function Builder() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -34,9 +40,17 @@ data:formData
         }
       }
         )
-        console.log(req)
-    };
 
+        console.log(req.data.status)
+        console.log(req.data.fileName)
+
+        // const pdfPath=`D:/Playgorund/resume-builder/apps/backend/documents/${req.data.fileName}`
+        // navigate(`http://localhost:5173/${pdfPath}`)
+
+        window.location.assign(`http://localhost:3000/getresume/?pdfname=${req.data.fileName}`)
+
+        
+    };
     return (
         <main className='mx-auto w-full md:max-w-screen-xl min-h-screen'>
             <form onSubmit={handleSubmit}>

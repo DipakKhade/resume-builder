@@ -14,6 +14,10 @@ const router = createBrowserRouter([
     path: "/resume-builder",
     element: <Builder />,
   },
+  // {
+  //   path: "/pdfview",
+  //   element: <PDFView />,
+  // },
 
 ]);
 ReactDOM.createRoot(document.getElementById('root')!).render(
