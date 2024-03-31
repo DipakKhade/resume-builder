@@ -20,5 +20,11 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cors": "^2.8.17",
+    "axios": "^1.6.8",
+    "cors": "^2.8.5"
+  }
 }
