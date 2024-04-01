@@ -8,6 +8,7 @@ import Header from './@/components/Header.tsx'
 
 import {ThemeProvider} from './@/components/theme-provider'
 import Footer from './@/components/Footer.tsx'
+import SignUp from './@/components/pages/Sign-up.tsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,10 +18,10 @@ const router = createBrowserRouter([
     path: "/resume-builder",
     element: <Builder />,
   },
-  // {
-  //   path: "/pdfview",
-  //   element: <PDFView />,
-  // },
+  {
+    path: "/sign-up",
+    element: <SignUp/>,
+  },
 
 ]);
 ReactDOM.createRoot(document.getElementById('root')!).render(

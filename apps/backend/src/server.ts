@@ -30,7 +30,6 @@ app.get('/', function (req: Request, res: Response) {
 app.post('/signup',function(req:Request,res:Response){
     const token=jwt.sign(req.body,jwtsecrete)
   res.cookie('token',token)
-
   res.send('log in success')
 })
 

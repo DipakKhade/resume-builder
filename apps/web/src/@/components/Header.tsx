@@ -3,6 +3,8 @@
 import * as React from "react"
 import { cn } from "../lib/utils"
 // import { Icons } from "@/components/icons"
+import { Button } from "./button"
+import { Link } from "react-router-dom"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -119,6 +121,13 @@ export default function Header() {
         <NavigationMenuItem>
             <ModeToggle/>
         </NavigationMenuItem>
+           {/* <Link to={'/sign-up'}> */}
+           <a href="/sign-up">
+           <Button>
+              sign in
+            </Button>
+            </a>
+            {/* </Link>  */}
       </NavigationMenuList>
     </NavigationMenu>
     </div>
