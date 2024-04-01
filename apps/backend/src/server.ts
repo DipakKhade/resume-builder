@@ -36,22 +36,37 @@ app.post('/signup',function(req:Request,res:Response){
 
 app.get('/login',function(req:Request,res:Response){
     const token=req.cookies.token
+   
 
-    try{
-
+       try {
         const verifytoken=jwt.verify(token,jwtsecrete) as JwtPayload
-        
-        
+   
+        // console.log(verifytoken)     
         return res.json({
-            email:verifytoken.email
+            status:'success',
+            email:verifytoken.data.email
         })
-    }
-    catch(err){
-        
-return res.json({status:'user not found'})
-    }
+
+       } catch (error) {
+        res.json({
+            status:'fail'
+        })
+       }
+
+    
+     
 
 
+})
+
+
+app.get('/logout',async function(req:Request,res:Response){
+    // const token = req.cookies.token
+    res.clearCookie('token')
+
+    return res.json({
+        message:'log out successful'
+    })
 })
 
 

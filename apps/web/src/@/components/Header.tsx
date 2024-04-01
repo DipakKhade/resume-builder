@@ -1,10 +1,10 @@
-"use client"
 
 import * as React from "react"
 import { cn } from "../lib/utils"
 // import { Icons } from "@/components/icons"
 import { Button } from "./button"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,6 +15,8 @@ import {
   navigationMenuTriggerStyle,
 } from "./navigation-menu"
 import { ModeToggle } from "./theme-toggle"
+import axios from "axios"
+
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -55,12 +57,31 @@ const components: { title: string; href: string; description: string }[] = [
 ]
 
 export default function Header() {
+  const [session,setSession]=React.useState<any>('')
+  useEffect(() => {
+    (async()=>{
+     const res=await axios.get('http://localhost:3000/login',{
+      withCredentials:true
+     })
+     setSession(res.data)
+    })();
+  }, [])
+
+// console.log(session)
+
+  
   return (
-    <nav className="ml-[35vw] p-6 mb-8 z-50">
+    <nav className="ml-[15vw] p-6 mb-8 z-50 flex">
+      {
+          session?.status=='success'?  <div>{session?.email}</div> : <div>{''}</div>
+        }
 <div>
+
 
     <NavigationMenu>
       <NavigationMenuList>
+        
+
         <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -122,10 +143,31 @@ export default function Header() {
             <ModeToggle/>
         </NavigationMenuItem>
            {/* <Link to={'/sign-up'}> */}
+
+
            <a href="/sign-up">
-           <Button>
-              sign in
-            </Button>
+{
+  session?.status=='success'?  <Button
+  onClick={
+    async()=> {
+      
+const res=await axios.get('http://localhost:3000/logout',{withCredentials:true})
+// console.log(res)
+alert('log out successful')
+    }
+   }>
+  log out
+</Button>
+:
+
+<Button
+>
+  sign in
+</Button>
+}
+           
+
+            
             </a>
             {/* </Link>  */}
       </NavigationMenuList>
