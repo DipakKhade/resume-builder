@@ -3,15 +3,46 @@ import PDFDocument from 'pdfkit';
 import fs from 'fs';
 import path from 'path';
 import cors from 'cors'
+import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
+// import userSchema from '@repo/packages/typescript-config/zodtypes'
+
 
 const PORT: number = 3000;
 const app: Express = express();
+const jwtsecrete:string='yyqoiomnzytebaopj'
+
 app.use(express.json());
-app.use(cors())
+app.use(cors(
+    {
+        credentials:true,
+        origin:"http://localhost:5173"
+    }
+))
+app.use(cookieParser())
 
 app.get('/', function (req: Request, res: Response) {
-    res.send('hi');
+    res.send('you are a / endpoint of server');
 });
+
+
+
+app.post('/signup',function(req:Request,res:Response){
+    const token=jwt.sign(req.body,jwtsecrete)
+  res.cookie('token',token)
+
+  res.send('log in success')
+})
+
+
+app.get('/login',function(req:Request,res:Response){
+    const token=req.cookies.token
+
+    // const verifytoken=jwt.verify(token,jwtsecrete)
+
+    console.log('dipak',token)
+})
+
 
 app.post('/generate-resume', async function (req: Request, res: Response) {
     let { name, email, education, experience, skills, social } =await req.body.data;
@@ -21,12 +52,6 @@ app.post('/generate-resume', async function (req: Request, res: Response) {
     social=social.split(',')
     skills=skills.split(',')
     
-
-    // console.log(experience)
-
-    // console.log(req.body)
-    
-
    
         const doc = new PDFDocument();
     doc.font('Helvetica');

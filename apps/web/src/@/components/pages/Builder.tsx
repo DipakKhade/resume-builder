@@ -3,9 +3,6 @@ import { Button } from '../button';
 import { Input } from '../input';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
-import { Document, Page } from 'react-pdf';
-import { PDFView } from './PDFView';
-import { redirect } from "react-router-dom";
 
 export default function Builder() {
     const navigate = useNavigate();
@@ -52,6 +49,7 @@ data:formData
         
     };
     return (
+        <>
         <main className='mx-auto w-full md:max-w-screen-xl min-h-screen'>
             <form onSubmit={handleSubmit}>
                 <div className='flex flex-col p-12 space-y-7'>
@@ -62,14 +60,14 @@ data:formData
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="Name"
-                    />
+                        />
                     <Input
                         type='email'
                         name='email'
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="Email"
-                    />
+                        />
                     {/* Education input */}
                     <div>
                         <label htmlFor="education">Education</label>
@@ -80,7 +78,7 @@ data:formData
                             value={formData.education} // This will be an array, so you might need to handle it differently
                             onChange={handleChange}
                             placeholder="Education (separate with commas)"
-                        />
+                            />
                     </div>
                     <div>
                         <label htmlFor="experience">experience</label>
@@ -103,7 +101,7 @@ data:formData
                             value={formData.skills} // This will be an array, so you might need to handle it differently
                             onChange={handleChange}
                             placeholder="skills (separate with commas)"
-                        />
+                            />
                     </div>
 
 <div>
@@ -115,12 +113,13 @@ data:formData
                         value={formData.social}
                         onChange={handleChange}
                         placeholder="Social Links (separate with commas)"
-                    />
+                        />
 
                         </div>
                     <Button type="submit">Submit</Button>
                 </div>
             </form>
         </main>
+                        </>
     );
 }
