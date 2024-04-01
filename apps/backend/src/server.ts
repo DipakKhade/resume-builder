@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 // import userSchema from '@repo/packages/typescript-config/zodtypes'
 
 
@@ -38,9 +38,21 @@ app.post('/signup',function(req:Request,res:Response){
 app.get('/login',function(req:Request,res:Response){
     const token=req.cookies.token
 
-    // const verifytoken=jwt.verify(token,jwtsecrete)
+    try{
 
-    console.log('dipak',token)
+        const verifytoken=jwt.verify(token,jwtsecrete) as JwtPayload
+        
+        
+        return res.json({
+            email:verifytoken.email
+        })
+    }
+    catch(err){
+        
+return res.json({status:'user not found'})
+    }
+
+
 })
 
 
