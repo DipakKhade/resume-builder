@@ -45,6 +45,6 @@ export default function Footer(){
     <a href="https://github.com/DipakKhade"> Dipak Khade</a>
   </div>
 </footer>
-COPY
+
 </>
 }

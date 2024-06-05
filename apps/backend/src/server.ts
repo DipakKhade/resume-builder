@@ -5,6 +5,7 @@ import path from 'path';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+
 // import userSchema from '@repo/packages/typescript-config/zodtypes'
 
 
@@ -125,7 +126,10 @@ app.post('/generate-resume', async function (req: Request, res: Response) {
     const filePath = `${path.resolve()}/documents/${fileName}`;
     doc.pipe(fs.createWriteStream(filePath));
     doc.end();
-    res.json({
+
+    
+console.log('control is here')
+ return res.json({
         status:'success',
         fileName
     })
@@ -149,6 +153,22 @@ console.log(resumepath)
         const stream = fs.createReadStream(resumepath);
         stream.pipe(res);
     } 
+})
+
+
+app.get('/download',function(req:Request,res:Response){
+    //@ts-ignore
+    const fileName :string=req.query.fileName
+    if (!fileName) {
+        return res.status(400).send('Filename is required');
+    }
+    console.log(fileName)
+    
+     res.download(`${path.resolve()}/documents/${fileName}`,fileName,(e)=>{
+console.log('error in downloading..')
+     })
+
+
 })
 
 app.listen(PORT, () => console.log('Server is up and running at PORT 3000...'));

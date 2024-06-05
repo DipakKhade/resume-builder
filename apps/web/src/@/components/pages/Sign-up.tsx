@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Input } from "../input";
-import { useForm,Resolver } from 'react-hook-form';
+import { useForm} from 'react-hook-form';
 import { useNavigate } from "react-router-dom";
 
 

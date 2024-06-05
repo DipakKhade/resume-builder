@@ -1,10 +1,8 @@
-
-import * as React from "react"
-import { cn } from "../lib/utils"
+import * as React from "react";
+import { cn } from "../lib/utils";
 // import { Icons } from "@/components/icons"
-import { Button } from "./button"
-import { Link } from "react-router-dom"
-import { useEffect } from "react"
+import { Button } from "./button";
+import { useEffect } from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,10 +11,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "./navigation-menu"
-import { ModeToggle } from "./theme-toggle"
-import axios from "axios"
-
+} from "./navigation-menu";
+import { ModeToggle } from "./theme-toggle";
+import axios from "axios";
 
 const components: { title: string; href: string; description: string }[] = [
   {
@@ -54,127 +51,120 @@ const components: { title: string; href: string; description: string }[] = [
     description:
       "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
   },
-]
+];
 
 export default function Header() {
-  const [session,setSession]=React.useState<any>('')
+  const [session, setSession] = React.useState<any>("");
   useEffect(() => {
-    (async()=>{
-     const res=await axios.get('http://localhost:3000/login',{
-      withCredentials:true
-     })
-     setSession(res.data)
+    (async () => {
+      const res = await axios.get("http://localhost:3000/login", {
+        withCredentials: true,
+      });
+      setSession(res.data);
     })();
-  }, [])
+  }, []);
 
-// console.log(session)
+  // console.log(session)
 
-  
   return (
     <nav className="ml-[15vw] p-6 mb-8 z-50 flex">
-      {
-          session?.status=='success'?  <div>{session?.email}</div> : <div>{''}</div>
-        }
-<div>
-
-
-    <NavigationMenu>
-      <NavigationMenuList>
-        
-
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <a
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/"
-                    >
-                    {/* <Icons.logo className="h-6 w-6" /> */}
-                    <div className="mb-2 mt-4 text-lg font-medium">
-                      shadcn/ui
-                    </div>
-                    <p className="text-sm leading-tight text-muted-foreground">
-                      Beautifully designed components that you can copy and
-                      paste into your apps. Accessible. Customizable. Open
-                      Source.
-                    </p>
-                  </a>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/docs" title="Introduction">
-                Re-usable components built using Radix UI and Tailwind CSS.
-              </ListItem>
-              <ListItem href="/docs/installation" title="Installation">
-                How to install dependencies and structure your app.
-              </ListItem>
-              <ListItem href="/docs/primitives/typography" title="Typography">
-                Styles for headings, paragraphs, lists...etc
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+      {/* {session?.status == "success" ? (
+        <div className="">{session?.email}</div>
+      ) : (
+        <div>{""}</div>
+      )} */}
+      <div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                  <li className="row-span-3">
+                    <NavigationMenuLink asChild>
+                      <a
+                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        href="/"
+                      >
+                        {/* <Icons.logo className="h-6 w-6" /> */}
+                        <div className="mb-2 mt-4 text-lg font-medium">
+                          shadcn/ui
+                        </div>
+                        <p className="text-sm leading-tight text-muted-foreground">
+                          Beautifully designed components that you can copy and
+                          paste into your apps. Accessible. Customizable. Open
+                          Source.
+                        </p>
+                      </a>
+                    </NavigationMenuLink>
+                  </li>
+                  <ListItem href="/docs" title="Introduction">
+                    Re-usable components built using Radix UI and Tailwind CSS.
+                  </ListItem>
+                  <ListItem href="/docs/installation" title="Installation">
+                    How to install dependencies and structure your app.
+                  </ListItem>
                   <ListItem
-                  key={component.title}
-                  title={component.title}
-                  href={component.href}
+                    href="/docs/primitives/typography"
+                    title="Typography"
                   >
-                  {component.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <a href="/docs" >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
-            </NavigationMenuLink>
-          </a>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-            <ModeToggle/>
-        </NavigationMenuItem>
-           {/* <Link to={'/sign-up'}> */}
+                    Styles for headings, paragraphs, lists...etc
+                  </ListItem>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  {components.map((component) => (
+                    <ListItem
+                      key={component.title}
+                      title={component.title}
+                      href={component.href}
+                    >
+                      {component.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <a href="/docs">
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Documentation
+                </NavigationMenuLink>
+              </a>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <ModeToggle />
+            </NavigationMenuItem>
+            {/* <Link to={'/sign-up'}> */}
 
-
-           <a href="/sign-up">
-{
-  session?.status=='success'?  <Button
-  onClick={
-    async()=> {
-      
-const res=await axios.get('http://localhost:3000/logout',{withCredentials:true})
-// console.log(res)
-alert('log out successful')
-    }
-   }>
-  log out
-</Button>
-:
-
-<Button
->
-  sign in
-</Button>
-}
-           
-
-            
+            <a href="/sign-up">
+              {session?.status == "success" ? (
+                <Button className="ml-3"
+                  onClick={async () => {
+                    const res = await axios.get(
+                      "http://localhost:3000/logout",
+                      { withCredentials: true }
+                    );
+                    // console.log(res)
+                    alert("log out successful");
+                  }}
+                >
+                  log out
+                </Button>
+              ) : (
+                <Button>sign in</Button>
+              )}
             </a>
             {/* </Link>  */}
-      </NavigationMenuList>
-    </NavigationMenu>
-    </div>
-                    </nav>
-  )
+          </NavigationMenuList>
+        </NavigationMenu>
+      </div>
+    </nav>
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -199,6 +189,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
