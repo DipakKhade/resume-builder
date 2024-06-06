@@ -413,7 +413,7 @@ export function GlobeDemo() {
             className="div"
           >
             <h2 className="text-center text-xl md:text-4xl font-bold text-black dark:text-white">
-              We sell soap worldwide
+              We have a reach worldwide
             </h2>
             <Link to={'/resume-builder'}>
 

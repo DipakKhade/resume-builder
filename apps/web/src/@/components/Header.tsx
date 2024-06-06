@@ -54,6 +54,7 @@ const components: { title: string; href: string; description: string }[] = [
 ];
 
 export default function Header() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [session, setSession] = React.useState<any>("");
   useEffect(() => {
     (async () => {
@@ -67,7 +68,7 @@ export default function Header() {
   // console.log(session)
 
   return (
-    <nav className="ml-[15vw] p-6 mb-8 z-50 flex">
+    <nav className="ml-[28vw] p-6 mb-8 z-50 flex">
       {/* {session?.status == "success" ? (
         <div className="">{session?.email}</div>
       ) : (
@@ -145,7 +146,7 @@ export default function Header() {
               {session?.status == "success" ? (
                 <Button className="ml-3"
                   onClick={async () => {
-                    const res = await axios.get(
+                     await axios.get(
                       "http://localhost:3000/logout",
                       { withCredentials: true }
                     );

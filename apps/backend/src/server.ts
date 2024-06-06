@@ -168,7 +168,7 @@ app.get('/download',function(req:Request,res:Response){
 console.log('error in downloading..')
      })
 
-
+return;
 })
 
 app.listen(PORT, () => console.log('Server is up and running at PORT 3000...'));
